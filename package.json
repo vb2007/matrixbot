@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
+    "dev": "npx tsx --watch src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "AGPL-3.0-only",
