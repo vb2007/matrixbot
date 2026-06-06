@@ -47,3 +47,11 @@ client.on("room.message", handleCommand);
 
 // Now that everything is set up, start the bot. This will start the sync loop and run until killed.
 client.start().then((): void => console.log("Bot started!"));
+
+// Error handling if decryption fails
+client.on(
+    "room.failed_decryption",
+    (roomId: string, event: any, error: Error): void => {
+        console.error(`Failed to decrypt event in ${roomId}:`, error);
+    }
+);
