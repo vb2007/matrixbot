@@ -3,11 +3,7 @@ import {
     SimpleFsStorageProvider,
     AutojoinRoomsMixin,
 } from "@vector-im/matrix-bot-sdk";
-
-// This will be the URL where clients can reach your homeserver. Note that this might be different
-// from where the web/chat interface is hosted. The server must support password registration without
-// captcha or terms of service (public servers typically won't work).
-const homeserverUrl: string = "https://example.org";
+import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
 
 // Use the access token you got from login or registration above.
 const accessToken: string = "ACQUIRED_FROM_ABOVE";
@@ -22,8 +18,8 @@ const storage: SimpleFsStorageProvider = new SimpleFsStorageProvider(
 // Finally, let's create the client and set it to autojoin rooms. Autojoining is typical of bots to ensure
 // they can be easily added to any room.
 const client: MatrixClient = new MatrixClient(
-    homeserverUrl,
-    accessToken,
+    HOMESERVER_URL,
+    ACCESS_TOKEN,
     storage
 );
 AutojoinRoomsMixin.setupOnClient(client);
@@ -39,7 +35,7 @@ const handleCommand = async (roomId: string, event: any) => {
     if (!body?.startsWith("!hello")) return;
 
     // Now that we've passed all the checks, we can actually act upon the command
-    await client.replyNotice(roomId, event, "Hello world!");
+    await client.replyNotice(roomId, event, "nigger!");
 };
 
 // Before we start the bot, register our command handler
