@@ -5,9 +5,6 @@ import {
 } from "@vector-im/matrix-bot-sdk";
 import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
 
-// Use the access token you got from login or registration above.
-const accessToken: string = "ACQUIRED_FROM_ABOVE";
-
 // In order to make sure the bot doesn't lose its state between restarts, we'll give it a place to cache
 // any information it needs to. You can implement your own storage provider if you like, but a JSON file
 // will work fine for this example.
