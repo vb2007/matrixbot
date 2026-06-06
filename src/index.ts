@@ -2,22 +2,30 @@ import {
     MatrixClient,
     SimpleFsStorageProvider,
     AutojoinRoomsMixin,
+    RustSdkCryptoStorageProvider,
+    RustSdkCryptoStoreType,
 } from "@vector-im/matrix-bot-sdk";
 import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
 
 // In order to make sure the bot doesn't lose its state between restarts, we'll give it a place to cache
 // any information it needs to. You can implement your own storage provider if you like, but a JSON file
 // will work fine for this example.
-const storage: SimpleFsStorageProvider = new SimpleFsStorageProvider(
-    "hello-bot.json"
+const storageProvider: SimpleFsStorageProvider = new SimpleFsStorageProvider(
+    "./data/bot-store.json"
 );
+const cryptoProvider: RustSdkCryptoStorageProvider =
+    new RustSdkCryptoStorageProvider(
+        "./data/crypto-store",
+        RustSdkCryptoStoreType.Sqlite
+    );
 
 // Finally, let's create the client and set it to autojoin rooms. Autojoining is typical of bots to ensure
 // they can be easily added to any room.
 const client: MatrixClient = new MatrixClient(
     HOMESERVER_URL,
     ACCESS_TOKEN,
-    storage
+    storageProvider,
+    cryptoProvider
 );
 AutojoinRoomsMixin.setupOnClient(client);
 
