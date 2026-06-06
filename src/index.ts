@@ -21,7 +21,6 @@ const client: MatrixClient = new MatrixClient(
 );
 AutojoinRoomsMixin.setupOnClient(client);
 
-// This is the command handler we registered a few lines up
 const handleCommand = async (roomId: string, event: any) => {
     // Don't handle unhelpful events (ones that aren't text messages, are redacted, or sent by us)
     if (event["content"]?.["msgtype"] !== "m.text") return;
@@ -32,7 +31,7 @@ const handleCommand = async (roomId: string, event: any) => {
     if (!body?.startsWith("!hello")) return;
 
     // Now that we've passed all the checks, we can actually act upon the command
-    await client.replyNotice(roomId, event, "nigger!");
+    await client.replyNotice(roomId, event, "Hello world!");
 };
 
 // Before we start the bot, register our command handler
