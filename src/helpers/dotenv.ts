@@ -10,9 +10,8 @@ const requireEnvironmentVariable = (key: string): string => {
     return value;
 };
 
-export const ACCESS_TOKEN: string | undefined =
-    requireEnvironmentVariable("ACCESS_TOKEN");
-export const USERNAME: string | undefined =
-    requireEnvironmentVariable("USERNAME");
-export const PASSWORD: string | undefined =
-    requireEnvironmentVariable("PASSWORD");
+export const HOMESERVER_URL: string =
+    requireEnvironmentVariable("HOMESERVER_URL");
+export const ACCESS_TOKEN: string = requireEnvironmentVariable("ACCESS_TOKEN");
+export const USERNAME: string = requireEnvironmentVariable("USERNAME");
+export const PASSWORD: string = requireEnvironmentVariable("PASSWORD");
