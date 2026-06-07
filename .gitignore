@@ -1,0 +1,8 @@
+# Folders
+/.idea
+/node_modules
+/dist
+/data
+
+#Files
+.env

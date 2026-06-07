@@ -1,0 +1,34 @@
+{
+    "name": "matrixbot",
+    "version": "1.0.0",
+    "description": "A general multi-purpose bot made for the Matrix ecosystem.",
+    "type": "module",
+    "main": "index.ts",
+    "scripts": {
+        "start": "npx tsx --watch src/index.ts",
+        "login": "npx tsx src/scripts/login.ts",
+        "register": "npx tsx src/scripts/register.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "AGPL-3.0-only",
+    "author": {
+        "name": "vb2007",
+        "email": "admin@vb2007.hu",
+        "url": "https://vb2007.hu"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vb2007/matrixbot.git"
+    },
+    "keywords": [],
+    "dependencies": {
+        "@matrix-org/matrix-sdk-crypto-nodejs": "^0.6.0",
+        "@vector-im/matrix-bot-sdk": "0.9.0-element.1",
+        "dotenv": "^17.4.2"
+    },
+    "devDependencies": {
+        "prettier": "^3.8.3",
+        "tsx": "^4.22.4",
+        "typescript": "^6.0.3"
+    }
+}
