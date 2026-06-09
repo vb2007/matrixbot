@@ -2,7 +2,7 @@
 /.idea
 /node_modules
 /dist
-/data
+/src/data
 
 #Files
 .env
