@@ -7,17 +7,24 @@ assignees:
     - vb2007
 type: bug
 body:
-    - type: markdown
+    - type: input
       attributes:
-
+        label: Version
+        description: Release version / used commit's ID
+        placeholder: ex. `v3.2` or `a1b2c3d4e5f6g7h8i9j0klmnopqrstuvwx`
+    - type: textarea
+      attributes:
+        label: Description
+        description: A brief explanation of the bug.
+        placeholder: When I'm doing X, Y happens instead of Z...
+    - type: textarea
+      attributes: 
+        label: Repro steps + Actual behavior.
+        description: Reproductions steps as a numbered list, ended with the actual behavior.
+        placeholder: 1. When I run the command /help...
+    - type: textarea
+      attributes:
+        label: Expected behavior
+        description: The thing that should happen instead.
+        placeholder: /help should return a list of commands.
 ---
-
-## Release version / last pulled commit's ID
-
-e.g.: `v3.2` or `a1b2c3d4e5f6g7h8i9j0klmnopqrstuvwx`
-
-## Description
-
-### Actual behavior
-
-### Expected behavior
