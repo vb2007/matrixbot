@@ -1,0 +1,23 @@
+name: New command
+description: Request for a brand new command / commands.
+title: "[Command] "
+labels: new-command
+assignees:
+  - vb2007
+type: feature
+body:
+  - type: input
+    attributes:
+      label: Command(s) name
+      description: Exact name for the new command(s).
+      placeholder: ex. `/help`
+  - type: input
+    attributes:
+      label: Category
+      description: The most fitting category for the new command(s).
+      placeholder: ex. `Utility`
+  - type: textarea
+    attributes:
+      label: Description
+      description: A brief description about the purpose of the command.
+      placeholder: ex. The `/help` command should return a list of commands.
