@@ -1,6 +1,5 @@
----
 name: Bug
-about: A command, feature, or anything related to the project isn't working properly.
+description: A command, feature, or anything related to the project isn't working properly.
 title: "[Bug] "
 labels: bug
 assignees:
@@ -20,11 +19,10 @@ body:
     - type: textarea
       attributes: 
         label: Repro steps + Actual behavior.
-        description: Reproductions steps as a numbered list, ended with the actual behavior.
+        description: Reproduction steps as a numbered list, ended with the actual behavior.
         placeholder: 1. When I run the command /help...
     - type: textarea
       attributes:
         label: Expected behavior
         description: The thing that should happen instead.
         placeholder: /help should return a list of commands.
----
