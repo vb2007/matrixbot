@@ -4,7 +4,6 @@ title: "[Feature] "
 labels: ["feature"]
 assignees:
   - vb2007
-type: feature
 body:
   - type: textarea
     attributes:

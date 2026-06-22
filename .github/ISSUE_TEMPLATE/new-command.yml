@@ -4,7 +4,6 @@ title: "[New Command] "
 labels: ["new-command"]
 assignees:
   - vb2007
-type: feature
 body:
   - type: input
     attributes:
