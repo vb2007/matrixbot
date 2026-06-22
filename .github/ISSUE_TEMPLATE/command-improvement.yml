@@ -1,7 +1,7 @@
 name: Command improvement
 description: Modification request for an existing command.
 title: "[Command Impr.] "
-labels: command-improvement
+labels: ["command-improvement"]
 assignees:
   - vb2007
 type: task

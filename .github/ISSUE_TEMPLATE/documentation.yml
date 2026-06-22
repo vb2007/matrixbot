@@ -1,7 +1,7 @@
 name: Documentation
 description: Creating / updating the project's documentation.
 title: "[Docs] "
-labels: documentation
+labels: ["documentation"]
 assignees:
   - vb2007
 type: task

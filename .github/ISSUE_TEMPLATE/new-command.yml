@@ -1,7 +1,7 @@
 name: New command
 description: Request for a brand new command / commands.
 title: "[New Command] "
-labels: new-command
+labels: ["new-command"]
 assignees:
   - vb2007
 type: feature

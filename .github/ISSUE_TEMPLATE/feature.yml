@@ -1,7 +1,7 @@
 name: Feature
 description: A new non-command feature request for anything new regarding the project.
 title: "[Feature] "
-labels: feature
+labels: ["feature"]
 assignees:
   - vb2007
 type: feature

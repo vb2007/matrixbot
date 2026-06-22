@@ -1,7 +1,7 @@
 name: Bug
 description: A command, feature, or anything related to the project isn't working properly.
 title: "[Bug] "
-labels: bug
+labels: ["bug"]
 assignees:
     - vb2007
 type: bug
