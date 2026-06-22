@@ -1,0 +1,18 @@
+name: Command improvement
+description: Modification request for an existing command.
+title: "[Command Impr.] "
+labels: command-improvement
+assignees:
+  - vb2007
+type: task
+body:
+  - type: input
+    attributes:
+      label: Command(s) name
+      description: Exact name for the existing command(s).
+      placeholder: ex. `/help`
+  - type: textarea
+    attributes:
+      label: Description
+      description: A brief description about the modifications for the command.
+      placeholder: ex. The `/help` command should return descriptions as well aside from the existing command name list...
