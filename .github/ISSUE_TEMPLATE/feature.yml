@@ -1,0 +1,13 @@
+name: Feature
+description: A new non-command feature request for anything new regarding the project.
+title: "[Feature] "
+labels: ["feature"]
+assignees:
+  - vb2007
+type: feature
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: A brief explanation of the feature.
+      placeholder: ex. The bot should be able to...
