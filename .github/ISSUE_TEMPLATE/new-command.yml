@@ -10,12 +10,17 @@ body:
     attributes:
       label: Command(s) name
       description: Exact name for the new command(s).
-      placeholder: ex. `/help`
-  - type: input
+      placeholder: ex. `!help`
+  - type: dropdown
     attributes:
       label: Category
       description: The most fitting category for the new command(s).
-      placeholder: ex. `Utility`
+      options:
+        - Administration
+        - Economy
+        - Fun
+        - Moderation
+        - Utility
   - type: textarea
     attributes:
       label: Description
