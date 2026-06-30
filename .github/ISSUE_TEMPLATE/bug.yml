@@ -25,4 +25,4 @@ body:
       attributes:
         label: Expected behavior
         description: The thing that should happen instead.
-        placeholder: ex. `/help` should return a list of commands.
+        placeholder: ex. `!help` should return a list of commands.
