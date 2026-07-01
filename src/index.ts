@@ -8,6 +8,7 @@ import { StoreType } from "@matrix-org/matrix-sdk-crypto-nodejs";
 
 import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
 import { pingCommand } from "./commands/ping";
+import { echoCommand } from "./commands/echo";
 import { Command } from "./types/command";
 
 const storageProvider: SimpleFsStorageProvider = new SimpleFsStorageProvider(
@@ -29,7 +30,7 @@ const client: MatrixClient = new MatrixClient(
 // Autojoining is typical of bots to ensure they can be easily added to any room.
 AutojoinRoomsMixin.setupOnClient(client);
 
-const allCommands: Command[] = [pingCommand];
+const allCommands: Command[] = [pingCommand, echoCommand];
 export const commandMap = new Map<string, Command>();
 
 for (const command of allCommands) {
