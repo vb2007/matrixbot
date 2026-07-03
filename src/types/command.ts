@@ -1,5 +1,12 @@
 import { MatrixClient } from "@vector-im/matrix-bot-sdk";
 
+export interface Command {
+    name: string;
+    description: string;
+    category: CommandCategory;
+    execute: (context: CommandContext) => Promise<any>;
+}
+
 export interface CommandContext {
     client: MatrixClient;
     roomId: string;
@@ -7,8 +14,13 @@ export interface CommandContext {
     args: string[];
 }
 
-export interface Command {
-    name: string;
-    description: string;
-    execute: (context: CommandContext) => Promise<any>;
-}
+export const CommandCategory = {
+    Administration: "Administraton",
+    Economy: "Economy",
+    Fun: "Fun",
+    Moderation: "Moderation",
+    Utility: "Utility",
+} as const;
+
+type CommandCategory =
+    (typeof CommandCategory)[keyof typeof CommandCategory];
