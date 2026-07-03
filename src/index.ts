@@ -7,8 +7,8 @@ import {
 import { StoreType } from "@matrix-org/matrix-sdk-crypto-nodejs";
 
 import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
-import { pingCommand } from "./commands/ping";
-import { echoCommand } from "./commands/echo";
+import { pingCommand } from "./commands/utility/ping";
+import { echoCommand } from "./commands/utility/echo";
 import { Command } from "./types/command";
 
 const storageProvider: SimpleFsStorageProvider = new SimpleFsStorageProvider(
