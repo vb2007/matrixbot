@@ -7,6 +7,7 @@ import {
 import { StoreType } from "@matrix-org/matrix-sdk-crypto-nodejs";
 
 import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
+
 import { handleCommand } from "./helpers/commands/commandHandler";
 
 const storageProvider: SimpleFsStorageProvider = new SimpleFsStorageProvider(
@@ -39,6 +40,8 @@ client.start().then((): void => console.log("Bot started!"));
 client.on(
     "room.failed_decryption",
     (roomId: string, event: any, error: Error): void => {
-        console.error(`Failed to decrypt event in ${roomId}:`, error);
+        console.error(
+            `Failed to decrypt event.\n\tRoom ID: ${roomId}\n\tEvent: ${event}\n\tError: ${error.message}`
+        );
     }
 );
