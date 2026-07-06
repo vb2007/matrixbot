@@ -2,7 +2,7 @@ export type CommandCategory =
     (typeof CommandCategory)[keyof typeof CommandCategory];
 
 export const CommandCategory = {
-    Administration: "Administraton",
+    Administration: "Administration",
     Economy: "Economy",
     Fun: "Fun",
     Moderation: "Moderation",
