@@ -1,8 +1,7 @@
 import { commandMap } from "./commandLoader";
 import { Command } from "../../types/command";
 import { MatrixClient } from "@vector-im/matrix-bot-sdk";
-
-const PREFIX = "!";
+import { PREFIX } from "../dotenv";
 
 export const handleCommand = async (
     client: MatrixClient,
