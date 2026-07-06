@@ -28,7 +28,9 @@ const client: MatrixClient = new MatrixClient(
 // Autojoining is typical of bots to ensure they can be easily added to any room.
 AutojoinRoomsMixin.setupOnClient(client);
 
-client.on("room.message", handleCommand);
+client.on("room.message", (roomId: string, event: any): Promise<void> =>
+    handleCommand(client, roomId, event)
+);
 
 // This will start the sync loop and run until killed.
 client.start().then((): void => console.log("Bot started!"));

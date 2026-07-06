@@ -8,7 +8,7 @@ export const handleCommand = async (
     client: MatrixClient,
     roomId: string,
     event: any
-) => {
+): Promise<void> => {
     // Exclude non-text , redacted, or bot's messages
     if (event["content"]?.["msgtype"] !== "m.text") return;
     if (event["sender"] === (await client.getUserId())) return;
