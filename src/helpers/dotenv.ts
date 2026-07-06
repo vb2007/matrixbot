@@ -15,3 +15,4 @@ export const HOMESERVER_URL: string =
 export const ACCESS_TOKEN: string = requireEnvironmentVariable("ACCESS_TOKEN");
 export const USERNAME: string = requireEnvironmentVariable("USERNAME");
 export const PASSWORD: string = requireEnvironmentVariable("PASSWORD");
+export const PREFIX: string = requireEnvironmentVariable("PREFIX");
