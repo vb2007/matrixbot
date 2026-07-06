@@ -1,4 +1,5 @@
 import { MatrixClient } from "@vector-im/matrix-bot-sdk";
+import { CommandCategory } from "./commandCategory";
 
 export interface Command {
     name: string;
@@ -13,14 +14,3 @@ export interface CommandContext {
     event: any;
     args: string[];
 }
-
-export const CommandCategory = {
-    Administration: "Administraton",
-    Economy: "Economy",
-    Fun: "Fun",
-    Moderation: "Moderation",
-    Utility: "Utility",
-} as const;
-
-type CommandCategory =
-    (typeof CommandCategory)[keyof typeof CommandCategory];
