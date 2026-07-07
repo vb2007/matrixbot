@@ -11,3 +11,25 @@ on:
 jobs:
   release:
     runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.0
+        with:
+          fetch-depth: '0' #fetches full history for changelog generation
+
+      - name: Get version from package.json
+        id: get-package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+          echo "raw_version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag already exists
+        id: tag-check
+        run: |
+          if git tag -l "${{ steps.package-version.outputs.version }}" | grep -q "${{ steps.package-version.outputs.version }}"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
