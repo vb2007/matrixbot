@@ -1,4 +1,13 @@
-name: gh-release.yml
+name: Release on GitHub
+
+permissions:
+  contents: write
+
 on:
+  push:
+    branches:
+      - main
 
 jobs:
+  release:
+    runs-on: self-hosted
