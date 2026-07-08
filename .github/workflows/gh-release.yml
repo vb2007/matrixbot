@@ -42,5 +42,4 @@ jobs:
           gh release create "${{ steps.package-version.outputs.version }}" \
             --title "${{ steps.package-version.outputs.version }}" \
             --generate-notes \
-            --latest \
-
+            --latest
