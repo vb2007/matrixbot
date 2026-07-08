@@ -23,7 +23,7 @@ export const randompicCommand: Command = {
                 return await client.replyNotice(
                     roomId,
                     event,
-                    "If you provide parameters, they both must be numbers in a `!randompic width height` format."
+                    "If you provide parameters, they both must be numbers in a !randompic width height format."
                 );
             }
 
