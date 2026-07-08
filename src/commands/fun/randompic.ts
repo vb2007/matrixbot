@@ -14,7 +14,6 @@ export const randompicCommand: Command = {
         const userInput: string = contentBody.split(
             `${PREFIX}${this.name} `
         )[1];
-        console.log(`[randompic] ${userInput}`);
 
         const paramFormat = /^\d{1,4} \d{1,4}$/;
 
