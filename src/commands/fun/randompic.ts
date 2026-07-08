@@ -9,6 +9,7 @@ export const randompicCommand: Command = {
     async execute({ client, roomId, event }: CommandContext): Promise<void> {
         let width: number = 350;
         let height: number = 350;
+        let validationErrorMessage: string = "";
 
         const contentBody: string = event.content.body;
         const userInput: string = contentBody.split(
@@ -19,19 +20,37 @@ export const randompicCommand: Command = {
         const paramFormat = /^\d{1,4} \d{1,4}$/;
 
         if (
-            userInput !== "" &&
-            userInput != undefined &&
-            paramFormat.test(userInput)
+            userInput === "" &&
+            userInput == undefined &&
+            !paramFormat.test(userInput)
         ) {
-            const params: string[] = userInput.split(" ");
-            const parsedWidth: number = parseInt(params[0], 10);
-            const parsedHeight: number = parseInt(params[1], 10);
+            validationErrorMessage =
+                "If you provide parameters, they both must be numbers in a `!randompic width heigh` format.";
 
-            if (parsedWidth <= 1000 && parsedHeight <= 1000) {
-                width = parsedWidth;
-                height = parsedHeight;
-            }
+            return await client.replyNotice(
+                roomId,
+                event,
+                validationErrorMessage
+            );
         }
+
+        const params: string[] = userInput.split(" ");
+        const parsedWidth: number = parseInt(params[0], 10);
+        const parsedHeight: number = parseInt(params[1], 10);
+
+        if (parsedWidth >= 1000 && parsedHeight >= 1000) {
+            validationErrorMessage =
+                "Width & height parameter must be less than 1000.";
+
+            return await client.replyNotice(
+                roomId,
+                event,
+                validationErrorMessage
+            );
+        }
+
+        width = parsedWidth;
+        height = parsedHeight;
 
         const imageUrl = `https://picsum.photos/${width}/${height}`;
 
@@ -48,7 +67,7 @@ export const randompicCommand: Command = {
             "randompic.jpg"
         );
 
-        await client.sendMessage(roomId, {
+        return await client.sendMessage(roomId, {
             "m.relates_to": {
                 "m.in_reply_to": {
                     event_id: event["event_id"],
