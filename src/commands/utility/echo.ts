@@ -12,7 +12,7 @@ export const echoCommand: Command = {
             `${PREFIX}${this.name} `
         )[1];
 
-        if (userInput === "" && userInput == undefined) {
+        if (userInput === "" || userInput == undefined) {
             return await client.replyNotice(
                 roomId,
                 event,
