@@ -28,7 +28,7 @@ export const randompicCommand: Command = {
                 },
             },
             msgtype: "m.image",
-            body: "buffer",
+            //body: "buffer",
             url: mxcUrl,
             info: {
                 mimetype,
