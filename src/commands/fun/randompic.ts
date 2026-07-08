@@ -6,10 +6,9 @@ export const randompicCommand: Command = {
     name: "randompic",
     category: CommandCategory.Fun,
     description: "Displays a random picture from picsum.photos.",
-    async execute({ client, roomId, event }: CommandContext): Promise<void> {
+    async execute({ client, roomId, event }: CommandContext): Promise<any> {
         let width: number = 350;
         let height: number = 350;
-        let validationErrorMessage: string = "";
 
         const contentBody: string = event.content.body;
         const userInput: string = contentBody.split(
@@ -19,38 +18,30 @@ export const randompicCommand: Command = {
 
         const paramFormat = /^\d{1,4} \d{1,4}$/;
 
-        if (
-            userInput === "" &&
-            userInput == undefined &&
-            !paramFormat.test(userInput)
-        ) {
-            validationErrorMessage =
-                "If you provide parameters, they both must be numbers in a `!randompic width heigh` format.";
+        if (userInput !== "" && userInput != undefined) {
+            if (!paramFormat.test(userInput)) {
+                return await client.replyNotice(
+                    roomId,
+                    event,
+                    "If you provide parameters, they both must be numbers in a `!randompic width height` format."
+                );
+            }
 
-            return await client.replyNotice(
-                roomId,
-                event,
-                validationErrorMessage
-            );
+            const params: string[] = userInput.split(" ");
+            const parsedWidth: number = parseInt(params[0], 10);
+            const parsedHeight: number = parseInt(params[1], 10);
+
+            if (parsedWidth > 1000 || parsedHeight > 1000) {
+                return await client.replyNotice(
+                    roomId,
+                    event,
+                    "Width & height parameter must be less than or equal to 1000."
+                );
+            }
+
+            width = parsedWidth;
+            height = parsedHeight;
         }
-
-        const params: string[] = userInput.split(" ");
-        const parsedWidth: number = parseInt(params[0], 10);
-        const parsedHeight: number = parseInt(params[1], 10);
-
-        if (parsedWidth >= 1000 && parsedHeight >= 1000) {
-            validationErrorMessage =
-                "Width & height parameter must be less than 1000.";
-
-            return await client.replyNotice(
-                roomId,
-                event,
-                validationErrorMessage
-            );
-        }
-
-        width = parsedWidth;
-        height = parsedHeight;
 
         const imageUrl = `https://picsum.photos/${width}/${height}`;
 
