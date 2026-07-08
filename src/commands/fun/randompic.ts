@@ -8,11 +8,18 @@ export const randompicCommand: Command = {
     async execute({ client, roomId, event }: CommandContext): Promise<void> {
         const imageUrl = "https://picsum.photos/350";
 
-        const response = await fetch(imageUrl);
-        const imageBuffer = Buffer.from(await response.arrayBuffer());
-        const mimetype = response.headers.get("content-type") ?? "image/jpeg";
+        const response: Response = await fetch(imageUrl);
+        const imageBuffer: Buffer<ArrayBuffer> = Buffer.from(
+            await response.arrayBuffer()
+        );
+        const mimetype: string =
+            response.headers.get("content-type") ?? "image/jpeg";
 
-        const mxcUrl = await client.uploadContent(imageBuffer, mimetype, "randompic.jpg");
+        const mxcUrl: string = await client.uploadContent(
+            imageBuffer,
+            mimetype,
+            "randompic.jpg"
+        );
 
         await client.sendMessage(roomId, {
             "m.relates_to": {
@@ -21,13 +28,13 @@ export const randompicCommand: Command = {
                 },
             },
             msgtype: "m.image",
-            body: "random image",
+            body: "buffer",
             url: mxcUrl,
             info: {
                 mimetype,
                 size: imageBuffer.length,
                 w: 350,
-                h: 350
+                h: 350,
             },
         });
     },
