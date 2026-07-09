@@ -11,3 +11,9 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Economy {
+  username  String @unique
+  balance   Int @default(0)
+  firstInteractionTime  DateTime @default(now())
+}
