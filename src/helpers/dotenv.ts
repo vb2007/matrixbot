@@ -17,3 +17,6 @@ export const USERNAME: string = requireEnvironmentVariable("USERNAME");
 export const PASSWORD: string = requireEnvironmentVariable("PASSWORD");
 export const PREFIX: string = requireEnvironmentVariable("PREFIX");
 export const DATABASE_URL: string = requireEnvironmentVariable("DATABASE_URL");
+export const SHADOW_DATABASE_URL: string = requireEnvironmentVariable(
+    "SHADOW_DATABASE_URL"
+);
