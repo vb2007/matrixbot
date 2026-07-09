@@ -16,3 +16,4 @@ export const ACCESS_TOKEN: string = requireEnvironmentVariable("ACCESS_TOKEN");
 export const USERNAME: string = requireEnvironmentVariable("USERNAME");
 export const PASSWORD: string = requireEnvironmentVariable("PASSWORD");
 export const PREFIX: string = requireEnvironmentVariable("PREFIX");
+export const DATABASE_URL: string = requireEnvironmentVariable("DATABASE_URL");
