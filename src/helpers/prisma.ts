@@ -4,6 +4,5 @@ import { DATABASE_URL } from "./dotenv";
 
 const connectionString: string = DATABASE_URL;
 
-const prismaPgAdapter = new PrismaPg({ connectionString });
-
-export const prismaClient = new PrismaClient({ prismaPgAdapter });
+const adapter: PrismaPg = new PrismaPg({ connectionString });
+export const prismaClient: PrismaClient = new PrismaClient({ adapter });
