@@ -11,3 +11,17 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Economy {
+  username  String @id @unique
+  balance   Int @default(0)
+  firstInteractionTime  DateTime @default(now())
+
+  economyActionTimes EconomyActionTimes?
+}
+
+model EconomyActionTimes {
+  username String @id @unique
+  economy Economy @relation(fields: [username], references: [username])
+  lastWorkTime DateTime
+}
