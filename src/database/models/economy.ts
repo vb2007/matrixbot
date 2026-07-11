@@ -1,7 +1,8 @@
 import { prismaClient } from "../prisma";
 import { Economy, EconomyActionTimes } from "../../../generated/prisma/client";
 
-type BalanceUpdateAction = "increment" | "decrement";
+type BalanceUpdateActions = "increment" | "decrement";
+type EconomyActionTypes = "lastWorkTime";
 
 export const doesUserExists = async (username: string): Promise<boolean> => {
     const userQuery: Economy | null = await prismaClient.economy.findUnique({
@@ -11,9 +12,22 @@ export const doesUserExists = async (username: string): Promise<boolean> => {
     return !!userQuery;
 };
 
+export const getEconomyActionTime = async (
+    username: string,
+    actionType: EconomyActionTypes
+): Promise<Date | null> => {
+    const result = await prismaClient.economyActionTimes.findFirst({
+        where: { username },
+        select: { [actionType]: true },
+    });
+
+    return result ? (result[actionType] as Date | null) : null;
+};
+
 export const createUser = async (
     username: string,
-    balance: number
+    balance: number,
+    actionType: EconomyActionTypes
 ): Promise<any> => {
     const economyQuery: Economy | null = await prismaClient.economy.create({
         data: {
@@ -27,7 +41,7 @@ export const createUser = async (
         await prismaClient.economyActionTimes.create({
             data: {
                 username: username,
-                lastWorkTime: new Date(),
+                [actionType]: new Date(),
             },
         });
 };
@@ -35,14 +49,22 @@ export const createUser = async (
 export const updateBalance = async (
     username: string,
     balance: number,
-    action: BalanceUpdateAction
-): Promise<Economy> => {
-    return prismaClient.economy.update({
+    action: BalanceUpdateActions,
+    actionType: EconomyActionTypes
+): Promise<any> => {
+    await prismaClient.economy.update({
         where: { username },
         data: {
             balance: {
                 [action]: balance,
             },
+        },
+    });
+
+    return prismaClient.economyActionTimes.update({
+        where: { username },
+        data: {
+            [actionType]: new Date(),
         },
     });
 };

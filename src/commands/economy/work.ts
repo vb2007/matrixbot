@@ -3,6 +3,7 @@ import { CommandCategory } from "../../types/commandCategory";
 import {
     createUser,
     doesUserExists,
+    getEconomyActionTime,
     updateBalance,
 } from "../../database/models/economy";
 
@@ -17,10 +18,39 @@ export const workCommand: Command = {
 
         const userExists: boolean = await doesUserExists(senderUsername);
         if (!userExists) {
-            await createUser(senderUsername, amount);
+            await createUser(senderUsername, amount, "lastWorkTime");
         }
 
-        await updateBalance(senderUsername, amount, "increment");
+        const lastActionTime: Date | null = await getEconomyActionTime(
+            senderUsername,
+            "lastWorkTime"
+        );
+
+        if (lastActionTime) {
+            const diffMs: number = Date.now() - lastActionTime.getTime();
+            const twoMinutesMs: number = 2 * 60 * 1000;
+
+            if (diffMs < twoMinutesMs) {
+                const remainingMs = twoMinutesMs - diffMs;
+                const remainingSeconds = Math.ceil(remainingMs / 1000);
+
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = Math.floor(remainingSeconds % 60);
+
+                return await client.replyNotice(
+                    roomId,
+                    event,
+                    `You need to wait ${minutes}m ${seconds}s before working again.`
+                );
+            }
+        }
+
+        await updateBalance(
+            senderUsername,
+            amount,
+            "increment",
+            "lastWorkTime"
+        );
 
         return await client.replyNotice(roomId, event, `Worked, +${amount}`);
     },
