@@ -6,7 +6,7 @@ import {
 } from "@vector-im/matrix-bot-sdk";
 import { StoreType } from "@matrix-org/matrix-sdk-crypto-nodejs";
 
-import { ACCESS_TOKEN, HOMESERVER_URL } from "./lib/dotenv";
+import { ACCESS_TOKEN, HOMESERVER_URL } from "./helpers/dotenv";
 
 import { handleCommand } from "./helpers/commands/commandHandler";
 
