@@ -5,5 +5,10 @@ export const workCommand: Command = {
     name: "work",
     category: CommandCategory.Economy,
     description: "Lets you work for a random amount of money.",
-    async execute({ client, roomId, event }: CommandContext): Promise<any> {},
+    async execute({ client, roomId, event }: CommandContext): Promise<any> {
+        const contentBody: string = event.content.body;
+        console.log(`Content Body: ${contentBody}`);
+
+        return await client.replyNotice(roomId, event, "asd");
+    },
 };
