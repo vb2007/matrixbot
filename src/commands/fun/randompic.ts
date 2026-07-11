@@ -1,7 +1,6 @@
 import { Command, CommandContext } from "../../types/command";
 import { CommandCategory } from "../../types/commandCategory";
 import { PREFIX } from "../../helpers/dotenv";
-
 export const randompicCommand: Command = {
     name: "randompic",
     category: CommandCategory.Fun,
