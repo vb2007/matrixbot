@@ -2,7 +2,7 @@ import { Command, CommandContext } from "../../types/command";
 import { CommandCategory } from "../../types/commandCategory";
 import {
     createUser,
-    doesUserExist,
+    doesUserExists,
     updateBalance,
 } from "../../database/models/economy";
 
@@ -15,8 +15,8 @@ export const workCommand: Command = {
 
         const amount: number = Math.floor(Math.random() * 100);
 
-        const isInDB: boolean = await doesUserExist(senderUsername);
-        if (!isInDB) {
+        const userExists: boolean = await doesUserExists(senderUsername);
+        if (!userExists) {
             await createUser(senderUsername, amount);
         }
 
