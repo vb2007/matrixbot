@@ -19,6 +19,12 @@ export const workCommand: Command = {
         const userExists: boolean = await doesUserExists(senderUsername);
         if (!userExists) {
             await createUser(senderUsername, amount, "lastWorkTime");
+
+            return await client.replyNotice(
+                roomId,
+                event,
+                `For your first shift, you've earned +${amount} credits for stirring cement.`
+            );
         }
 
         const lastActionTime: Date | null = await getEconomyActionTime(
@@ -31,16 +37,16 @@ export const workCommand: Command = {
             const twoMinutesMs: number = 2 * 60 * 1000;
 
             if (diffMs < twoMinutesMs) {
-                const remainingMs = twoMinutesMs - diffMs;
-                const remainingSeconds = Math.ceil(remainingMs / 1000);
+                const remainingMs: number = twoMinutesMs - diffMs;
+                const remainingSeconds: number = Math.ceil(remainingMs / 1000);
 
-                const minutes = Math.floor(remainingSeconds / 60);
-                const seconds = Math.floor(remainingSeconds % 60);
+                const minutes: number = Math.floor(remainingSeconds / 60);
+                const seconds: number = Math.floor(remainingSeconds % 60);
 
                 return await client.replyNotice(
                     roomId,
                     event,
-                    `You need to wait ${minutes}m ${seconds}s before working again.`
+                    `You need to take a rest for ${minutes}m ${seconds}s.`
                 );
             }
         }
@@ -52,6 +58,10 @@ export const workCommand: Command = {
             "lastWorkTime"
         );
 
-        return await client.replyNotice(roomId, event, `Worked, +${amount}`);
+        return await client.replyNotice(
+            roomId,
+            event,
+            `You've earned +${amount} credits for stirring cement.`
+        );
     },
 };
