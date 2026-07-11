@@ -1,20 +1,10 @@
 import { prismaClient } from "../prisma";
-
-export interface Economy {
-    username: string;
-    balance: number;
-    firstInteractionTime: Date;
-}
-
-export interface EconomyActionTimes {
-    username: Economy["username"];
-    lastWorkTime: Date;
-}
+import { Economy, EconomyActionTimes } from "../../../generated/prisma/client";
 
 type BalanceUpdateAction = "increment" | "decrement";
 
-export const doesUserExist = async (username: string): Promise<boolean> => {
-    const userQuery = await prismaClient.economy.findUnique({
+export const doesUserExists = async (username: string): Promise<boolean> => {
+    const userQuery: Economy | null = await prismaClient.economy.findUnique({
         where: { username },
     });
 
@@ -25,7 +15,7 @@ export const createUser = async (
     username: string,
     balance: number
 ): Promise<any> => {
-    const economyQuery = await prismaClient.economy.create({
+    const economyQuery: Economy | null = await prismaClient.economy.create({
         data: {
             username: username,
             balance: balance,
@@ -33,7 +23,7 @@ export const createUser = async (
         },
     });
 
-    const economyActionTimesQuery =
+    const economyActionTimesQuery: EconomyActionTimes =
         await prismaClient.economyActionTimes.create({
             data: {
                 username: username,
