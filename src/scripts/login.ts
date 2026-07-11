@@ -1,5 +1,5 @@
 import { MatrixAuth, MatrixClient } from "@vector-im/matrix-bot-sdk";
-import { USERNAME, PASSWORD, HOMESERVER_URL } from "../lib/dotenv";
+import { USERNAME, PASSWORD, HOMESERVER_URL } from "../helpers/dotenv";
 
 const auth: MatrixAuth = new MatrixAuth(HOMESERVER_URL);
 const client: MatrixClient = await auth.passwordLogin(USERNAME, PASSWORD);

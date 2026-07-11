@@ -1,6 +1,6 @@
 import { Command, CommandContext } from "../../types/command";
 import { CommandCategory } from "../../types/commandCategory";
-import { PREFIX } from "../../lib/dotenv";
+import { PREFIX } from "../../helpers/dotenv";
 
 export const echoCommand: Command = {
     name: "echo",
