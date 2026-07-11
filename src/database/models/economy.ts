@@ -1,5 +1,5 @@
 import { prismaClient } from "../prisma";
-import { Economy, EconomyActionTimes } from "../../../generated/prisma/client";
+import { Economy } from "../../../generated/prisma/client";
 
 type BalanceUpdateActions = "increment" | "decrement";
 type EconomyActionTypes = "lastWorkTime";
@@ -28,22 +28,27 @@ export const createUser = async (
     username: string,
     balance: number,
     actionType: EconomyActionTypes
-): Promise<any> => {
-    const economyQuery: Economy | null = await prismaClient.economy.create({
-        data: {
-            username: username,
-            balance: balance,
-            firstInteractionTime: new Date(),
-        },
-    });
+): Promise<void> => {
+    try {
+        await prismaClient.economy.create({
+            data: {
+                username: username,
+                balance: balance,
+                firstInteractionTime: new Date(),
+            },
+        });
 
-    const economyActionTimesQuery: EconomyActionTimes =
         await prismaClient.economyActionTimes.create({
             data: {
                 username: username,
                 [actionType]: new Date(),
             },
         });
+    } catch (ex) {
+        console.error(ex);
+
+        throw new Error("Unable to create user");
+    }
 };
 
 export const updateBalance = async (
@@ -52,19 +57,25 @@ export const updateBalance = async (
     action: BalanceUpdateActions,
     actionType: EconomyActionTypes
 ): Promise<any> => {
-    await prismaClient.economy.update({
-        where: { username },
-        data: {
-            balance: {
-                [action]: balance,
+    try {
+        await prismaClient.economy.update({
+            where: { username },
+            data: {
+                balance: {
+                    [action]: balance,
+                },
             },
-        },
-    });
+        });
 
-    return prismaClient.economyActionTimes.update({
-        where: { username },
-        data: {
-            [actionType]: new Date(),
-        },
-    });
+        return prismaClient.economyActionTimes.update({
+            where: { username },
+            data: {
+                [actionType]: new Date(),
+            },
+        });
+    } catch (ex) {
+        console.error(ex);
+
+        throw new Error("Unable to update balance");
+    }
 };

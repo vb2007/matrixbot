@@ -18,7 +18,15 @@ export const workCommand: Command = {
 
         const userExists: boolean = await doesUserExists(senderUsername);
         if (!userExists) {
-            await createUser(senderUsername, amount, "lastWorkTime");
+            try {
+                await createUser(senderUsername, amount, "lastWorkTime");
+            } catch (ex) {
+                return await client.replyNotice(
+                    roomId,
+                    event,
+                    `There was an error during your first transaction.`
+                );
+            }
 
             return await client.replyNotice(
                 roomId,
@@ -51,6 +59,14 @@ export const workCommand: Command = {
             }
         }
 
+        try {
+        } catch (ex) {
+            return await client.replyNotice(
+                roomId,
+                event,
+                `There was an error during your balance update.`
+            );
+        }
         await updateBalance(
             senderUsername,
             amount,
