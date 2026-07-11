@@ -13,7 +13,6 @@ export const workCommand: Command = {
     description: "Lets you work for a random amount of money.",
     async execute({ client, roomId, event }: CommandContext): Promise<any> {
         const senderUsername: string = event.sender;
-
         const amount: number = Math.floor(Math.random() * 100);
 
         const userExists: boolean = await doesUserExists(senderUsername);
@@ -39,7 +38,6 @@ export const workCommand: Command = {
             senderUsername,
             "lastWorkTime"
         );
-
         if (lastActionTime) {
             const diffMs: number = Date.now() - lastActionTime.getTime();
             const twoMinutesMs: number = 2 * 60 * 1000;
@@ -60,6 +58,12 @@ export const workCommand: Command = {
         }
 
         try {
+            await updateBalance(
+                senderUsername,
+                amount,
+                "increment",
+                "lastWorkTime"
+            );
         } catch (ex) {
             return await client.replyNotice(
                 roomId,
@@ -67,12 +71,6 @@ export const workCommand: Command = {
                 `There was an error during your balance update.`
             );
         }
-        await updateBalance(
-            senderUsername,
-            amount,
-            "increment",
-            "lastWorkTime"
-        );
 
         return await client.replyNotice(
             roomId,
