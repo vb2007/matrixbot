@@ -1,6 +1,9 @@
 import { Command, CommandContext } from "../../types/command";
 import { CommandCategory } from "../../types/commandCategory";
-import { doesUserExists } from "../../database/models/economy";
+import {
+    doesUserExists,
+    getEconomyActionTime,
+} from "../../database/models/economy";
 
 export const cooldownCommand: Command = {
     name: "cooldown",
@@ -11,6 +14,47 @@ export const cooldownCommand: Command = {
         const senderUsername: string = event.sender;
 
         const userExists: boolean = await doesUserExists(senderUsername);
-        if (!userExists)
+        if (!userExists) {
+            return await client.replyNotice(
+                roomId,
+                event,
+                "You haven't had any transactions yet, thus you have no cooldown on any command."
+            );
+        }
+
+        const lastActionTime: Date | null = await getEconomyActionTime(
+            senderUsername,
+            "lastWorkTime"
+        );
+        if (!lastActionTime) {
+            return await client.replyNotice(
+                roomId,
+                event,
+                "You haven't used this command yet, thus you have no cooldown on it."
+            );
+        }
+
+        const diffMs: number = Date.now() - lastActionTime.getTime();
+        const twoMinutesMs: number = 2 * 60 * 1000;
+
+        if (diffMs < twoMinutesMs) {
+            const remainingMs: number = twoMinutesMs - diffMs;
+            const remainingSeconds: number = Math.ceil(remainingMs / 1000);
+
+            const minutes: number = Math.floor(remainingSeconds / 60);
+            const seconds: number = Math.floor(remainingSeconds % 60);
+
+            return await client.replyNotice(
+                roomId,
+                event,
+                `The command's cooldown is at ${minutes}m ${seconds}s.`
+            );
+        }
+
+        return await client.replyNotice(
+            roomId,
+            event,
+            "You don't have an active cooldown on this command.."
+        );
     },
 };
