@@ -83,7 +83,7 @@ export const cooldownCommand: Command = {
         return await client.replyNotice(
             roomId,
             event,
-            "You don't have an active cooldown on this command.."
+            "You don't have an active cooldown on this command."
         );
     },
 };
