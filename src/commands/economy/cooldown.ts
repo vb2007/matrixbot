@@ -4,6 +4,7 @@ import {
     doesUserExists,
     getEconomyActionTime,
 } from "../../database/models/economy";
+import { PREFIX } from "../../helpers/dotenv";
 
 export const cooldownCommand: Command = {
     name: "cooldown",
@@ -22,10 +23,38 @@ export const cooldownCommand: Command = {
             );
         }
 
-        const lastActionTime: Date | null = await getEconomyActionTime(
-            senderUsername,
-            "lastWorkTime"
-        );
+        let lastActionTime: Date | null = null;
+        const contentBody: string = event.content.body;
+        const userInput: string = contentBody.split(
+            `${PREFIX}${this.name} `
+        )[1];
+
+        switch (userInput) {
+            case "":
+            case undefined:
+                //all command cooldown will get returned here, once there are more commands
+                return await client.replyNotice(
+                    roomId,
+                    event,
+                    "Temporarily unavailable."
+                );
+
+            case "work":
+                lastActionTime = await getEconomyActionTime(
+                    senderUsername,
+                    "lastWorkTime"
+                );
+
+                break;
+
+            default:
+                return await client.replyNotice(
+                    roomId,
+                    event,
+                    "Invalid command parameter: please provide a command's name clearly after this command's name (e.x.: !cooldown work)."
+                );
+        }
+
         if (!lastActionTime) {
             return await client.replyNotice(
                 roomId,
