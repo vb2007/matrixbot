@@ -3,8 +3,10 @@ import { CommandCategory } from "../../types/commandCategory";
 import {
     doesUserExists,
     getEconomyActionTime,
+    getEconomyActionTimes,
 } from "../../database/models/economy";
 import { PREFIX } from "../../helpers/dotenv";
+import { EconomyActionTimes } from "../../../generated/prisma/client";
 
 export const cooldownCommand: Command = {
     name: "cooldown",
@@ -33,6 +35,10 @@ export const cooldownCommand: Command = {
             case "":
             case undefined:
                 //all command cooldown will get returned here, once there are more commands
+                const allActionTimes: EconomyActionTimes | null =
+                    await getEconomyActionTimes(senderUsername);
+
+                console.log(allActionTimes);
                 return await client.replyNotice(
                     roomId,
                     event,
