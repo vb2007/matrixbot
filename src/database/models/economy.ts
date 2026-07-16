@@ -1,5 +1,5 @@
 import { prismaClient } from "../prisma";
-import { Economy } from "../../../generated/prisma/client";
+import { Economy, EconomyActionTimes } from "../../../generated/prisma/client";
 
 type BalanceUpdateActions = "increment" | "decrement";
 type EconomyActionTypes = "lastWorkTime";
@@ -22,6 +22,14 @@ export const getEconomyActionTime = async (
     });
 
     return result ? (result[actionType] as Date | null) : null;
+};
+
+export const getEconomyActionTimes = async (
+    username: string
+): Promise<EconomyActionTimes | null> => {
+    return prismaClient.economyActionTimes.findFirst({
+        where: { username },
+    });
 };
 
 export const createUser = async (

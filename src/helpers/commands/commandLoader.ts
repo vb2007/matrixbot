@@ -1,14 +1,16 @@
+import { Command } from "../../types/command";
 import { pingCommand } from "../../commands/utility/ping";
 import { echoCommand } from "../../commands/utility/echo";
-import { Command } from "../../types/command";
 import { randompicCommand } from "../../commands/fun/randompic";
 import { workCommand } from "../../commands/economy/work";
+import { cooldownCommand } from "../../commands/economy/cooldown";
 
 const allCommands: Command[] = [
     pingCommand,
     echoCommand,
     randompicCommand,
     workCommand,
+    cooldownCommand,
 ];
 export const commandMap = new Map<string, Command>();
 
