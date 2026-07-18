@@ -6,6 +6,6 @@ export const payCommand: Command = {
     category: CommandCategory.Economy,
     description: "Pays a set amount of credits to the specified user",
     async execute({client, roomId, event}: CommandContext): Promise<any> {
-
+        const senderUsername: string = event.sender;
     }
 }
